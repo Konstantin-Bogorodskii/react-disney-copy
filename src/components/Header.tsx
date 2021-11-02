@@ -15,36 +15,37 @@ function Header() {
           </a>
         </li>
         <li>
-          <a href="/home">
-            <img src="/images/search-icon.svg" alt="Home" />
+          <a href="/search">
+            <img src="/images/search-icon.svg" alt="SEARCH" />
             <span>SEARCH</span>
           </a>
         </li>
         <li>
-          <a href="/home">
-            <img src="/images/watchlist-icon.svg" alt="Home" />
+          <a href="/watchlist">
+            <img src="/images/watchlist-icon.svg" alt="watchlist" />
             <span>watchlist</span>
           </a>
         </li>
         <li>
-          <a href="/home">
-            <img src="/images/original-icon.svg" alt="Home" />
+          <a href="/originals">
+            <img src="/images/original-icon.svg" alt="originals" />
             <span>originals</span>
           </a>
         </li>
         <li>
-          <a href="/home">
-            <img src="/images/movie-icon.svg" alt="Home" />
+          <a href="/movies">
+            <img src="/images/movie-icon.svg" alt="movies" />
             <span>movies</span>
           </a>
         </li>
         <li>
-          <a href="/home">
-            <img src="/images/series-icon.svg" alt="Home" />
+          <a href="/series">
+            <img src="/images/series-icon.svg" alt="series" />
             <span>series</span>
           </a>
         </li>
       </NavMenu>
+      <Login>Login</Login>
     </Nav>
   );
 }
@@ -147,6 +148,22 @@ const NavMenu = styled.ul`
 
   @media (max-width: 768px) {
     display: none;
+  }
+`;
+
+const Login = styled.a`
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 8px 16px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  border: 1px solid #f9f9f9;
+  border-radius: 5px;
+  transition: all 0.2s ease-out 0s;
+
+  &:hover {
+    background-color: #f9f9f9;
+    color: rgba(0, 0, 0, 0.6);
+    border-color: transparent;
   }
 `;
 
