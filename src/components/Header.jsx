@@ -1,7 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
+import { auth, provider } from '../firebase';
+import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 function Header() {
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const userName = useSelector(state => state.userReducer.name);
+  const userEmail = useSelector(state => state.userReducer.email);
+  const userPhoto = useSelector(state => state.userReducer.photo);
+  console.log(userName, userEmail, userPhoto);
+  const handleAuth = () => {
+    auth
+      .signInWithPopup(provider)
+      .then(result => console.log(result))
+      .catch(error => console.log(error.message));
+  };
+
   return (
     <Nav>
       <Logo>
@@ -45,7 +61,7 @@ function Header() {
           </a>
         </li>
       </NavMenu>
-      <Login>Login</Login>
+      <Login onClick={handleAuth}>Login</Login>
     </Nav>
   );
 }
@@ -140,7 +156,10 @@ const NavMenu = styled.ul`
         transform: scaleX(1) !important;
         visibility: visible !important;
         opacity: 1 !important;
-      }
+      }import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { userReducer } from './../../../react-ts-redux-practice/src/store/reducers/userReducer';
+
     }
   }
 
