@@ -3,18 +3,24 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import Header from './components/Header';
 import Login from './components/Login';
 import Home from './components/Home';
+import { useSelector } from 'react-redux';
 
 function App() {
+  const userName = useSelector(state => state.userReducer.name);
+
   return (
     <div>
       <Header />
       <Switch>
-        <Route path="/" exact>
-          <Login />
-        </Route>
-        <Route path="/home">
-          <Home />
-        </Route>
+        {!userName ? (
+          <Route path="/" exact>
+            <Login />
+          </Route>
+        ) : (
+          <Route path="/home">
+            <Home />
+          </Route>
+        )}
         <Redirect to="/" />
       </Switch>
     </div>
