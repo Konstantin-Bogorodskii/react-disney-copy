@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { auth, provider } from '../firebase';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserLoginDeatils, setSignOutState } from '../store/reducers/userSlice';
+import NavMenuItem from './NavMenuItem';
+
 function Header() {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -11,11 +13,30 @@ function Header() {
   const userEmail = useSelector(state => state.userReducer.email);
   const userPhoto = useSelector(state => state.userReducer.photo);
 
+  useEffect(() => {
+    auth.onAuthStateChanged(async user => {
+      if (user) {
+        setUser(user);
+        history.push('/home');
+      }
+    });
+  }, [userName]);
+
   const handleAuth = () => {
-    auth
-      .signInWithPopup(provider)
-      .then(result => setUser(result.user))
-      .catch(error => console.log(error.message));
+    if (!userName) {
+      auth
+        .signInWithPopup(provider)
+        .then(result => setUser(result.user))
+        .catch(err => alert(err.message));
+    } else if (userName) {
+      auth
+        .signOut()
+        .then(() => {
+          dispatch(setSignOutState());
+          history.push('/');
+        })
+        .catch(err => alert(err.message));
+    }
   };
 
   const setUser = user => {
@@ -39,44 +60,19 @@ function Header() {
       ) : (
         <>
           <NavMenu>
-            <li>
-              <a href="/home">
-                <img src="/images/home-icon.svg" alt="Home" />
-                <span>HOME</span>
-              </a>
-            </li>
-            <li>
-              <a href="/search">
-                <img src="/images/search-icon.svg" alt="SEARCH" />
-                <span>SEARCH</span>
-              </a>
-            </li>
-            <li>
-              <a href="/watchlist">
-                <img src="/images/watchlist-icon.svg" alt="watchlist" />
-                <span>watchlist</span>
-              </a>
-            </li>
-            <li>
-              <a href="/originals">
-                <img src="/images/original-icon.svg" alt="originals" />
-                <span>originals</span>
-              </a>
-            </li>
-            <li>
-              <a href="/movies">
-                <img src="/images/movie-icon.svg" alt="movies" />
-                <span>movies</span>
-              </a>
-            </li>
-            <li>
-              <a href="/series">
-                <img src="/images/series-icon.svg" alt="series" />
-                <span>series</span>
-              </a>
-            </li>
+            <NavMenuItem text="home" img="home-icon.svg" />
+            <NavMenuItem text="search" img="search-icon.svg" />
+            <NavMenuItem text="watchlist" img="watchlist-icon.svg" />
+            <NavMenuItem text="originals" img="original-icon.svg" />
+            <NavMenuItem text="movies" img="movie-icon.svg" />
+            <NavMenuItem text="series" img="series-icon.svg" />
           </NavMenu>
-          <UserImage src={userPhoto} alt={userName} />
+          <SignOut>
+            <UserImage src={userPhoto} alt={userName} />
+            <DropDown>
+              <span onClick={handleAuth}>Sign Out</span>
+            </DropDown>
+          </SignOut>
         </>
       )}
     </Nav>
@@ -127,61 +123,6 @@ const NavMenu = styled.ul`
   margin-right: auto;
   margin-left: 25px;
 
-  a {
-    display: flex;
-    align-items: center;
-    padding: 0 12px;
-
-    img {
-      height: 20px;
-      min-width: 20px;
-      width: 20px;
-      z-index: auto;
-    }
-
-    span {
-      color: rgb(249, 249, 249);
-      font-size: 13px;
-      letter-spacing: 1.42px;
-      line-height: 1.08;
-      padding: 3px;
-      white-space: nowrap;
-      position: relative;
-      margin-top: 2px;
-      text-transform: uppercase;
-
-      &:before {
-        background-color: rgb(249, 249, 249);
-        border-radius: 0px 0px 4px 4px;
-        content: "";
-        height: 2px;
-        position: absolute;
-        left: 0px;
-        right: 0px;
-        bottom: -6px;
-        transform-origin: left center;
-        transform: scaleX(0);
-        transition: all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s;
-        opacity: 0;
-        visibility: hidden;
-        width: auto;
-      }
-    }
-
-    &:hover {
-      span:before {
-        transform: scaleX(1) !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-      }import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import { userReducer } from './../../../react-ts-redux-practice/src/store/reducers/userReducer';
-
-    }
-  }
-
-  
-
   @media (max-width: 768px) {
     display: none;
   }
@@ -205,6 +146,46 @@ const Login = styled.a`
 
 const UserImage = styled.img`
   height: 100%;
+`;
+
+const DropDown = styled.div`
+  position: absolute;
+  top: 48px;
+  right: 0px;
+  background: rgb(19, 19, 19);
+  border: 1px solid rgba(151, 151, 151, 0.34);
+  border-radius: 4px;
+  box-shadow: rgb(0 0 0 / 50%) 0px 0px 18px 0px;
+  padding: 10px;
+  font-size: 14px;
+  letter-spacing: 3px;
+  width: max-content;
+  opacity: 0;
+  visibility: hidden;
+`;
+
+const SignOut = styled.div`
+  position: relative;
+  height: 50px;
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  ${UserImage} {
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+  }
+
+  &:hover {
+    ${DropDown} {
+      opacity: 1;
+      visibility: visible;
+      transition: all 0.3s ease-out 0.3s;
+    }
+  }
 `;
 
 export default Header;

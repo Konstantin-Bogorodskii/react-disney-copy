@@ -1,7 +1,8 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import Header from './components/Header';
 import Login from './components/Login';
+import Home from './components/Home';
 
 function App() {
   return (
@@ -11,6 +12,10 @@ function App() {
         <Route path="/" exact>
           <Login />
         </Route>
+        <Route path="/home">
+          <Home />
+        </Route>
+        <Redirect to="/" />
       </Switch>
     </div>
   );
