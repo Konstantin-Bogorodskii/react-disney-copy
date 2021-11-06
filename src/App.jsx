@@ -1,28 +1,12 @@
 import React from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import AppRouter from './components/AppRouter';
 import Header from './components/Header';
-import Login from './components/Login';
-import Home from './components/Home';
-import { useSelector } from 'react-redux';
 
 function App() {
-  const userName = useSelector(state => state.userReducer.name);
-
   return (
     <div>
       <Header />
-      <Switch>
-        {!userName ? (
-          <Route path="/" exact>
-            <Login />
-          </Route>
-        ) : (
-          <Route path="/home">
-            <Home />
-          </Route>
-        )}
-        <Redirect to="/" />
-      </Switch>
+      <AppRouter />
     </div>
   );
 }
