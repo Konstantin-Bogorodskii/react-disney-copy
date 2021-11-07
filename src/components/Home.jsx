@@ -1,21 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 import ImageSlider from './ImageSlider';
-import Recommends from './Recommends';
+import MoviesRow from './MoviesRow';
 import Viewers from './Viewers';
-import NewDisney from './NewDisney';
-import Originals from './Originals';
-import Trending from './Trending';
+import requests from '../api/api';
 
 function Home() {
   return (
     <Container>
       <ImageSlider />
       <Viewers />
-      <Recommends />
-      <NewDisney />
-      <Originals />
-      <Trending />
+      <MoviesRow title="Recommended for You" fetchURL={requests.fetchTrending} />
     </Container>
   );
 }

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { API_URL } from '../api/api';
 
 export const useFetching = url => {
   const [data, setDate] = useState(null);
@@ -9,7 +10,7 @@ export const useFetching = url => {
   useEffect(() => {
     setIsLoading(true);
     axios
-      .get(url)
+      .get(`${API_URL}${url}`)
       .then(response => {
         setDate(response.data);
       })
