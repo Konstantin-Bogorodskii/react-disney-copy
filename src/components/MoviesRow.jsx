@@ -1,15 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { useFetching } from '../hooks/useFetching';
+import { API_IMG_URL } from '../api/api';
 
-function NewDisney() {
+function MoviesRow({ title, fetchURL }) {
+  const { data: moviesData, isLoading, error } = useFetching(fetchURL);
+
+  console.log(moviesData);
   return (
     <Container>
-      <h2>New to Disney+ </h2>
+      <h2>{title}</h2>
       <Content>
-        <Wrap>
-          <Link to="/">{/* <img src="" */}</Link>
-        </Wrap>
+        {moviesData &&
+          moviesData.results.map(movie => {
+            return (
+              <Wrap key={movie.id}>
+                {movie.id}
+                <Link to={'/detail/' + movie.id}>
+                  <img
+                    src={`${API_IMG_URL}${movie.poster_path}`}
+                    alt={movie.name || movie.title || movie.original_title}
+                  />
+                </Link>
+              </Wrap>
+            );
+          })}
       </Content>
     </Container>
   );
@@ -59,4 +75,4 @@ const Wrap = styled.div`
   }
 `;
 
-export default NewDisney;
+export default MoviesRow;
