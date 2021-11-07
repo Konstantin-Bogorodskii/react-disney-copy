@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useFetching } from '../hooks/useFetching';
@@ -16,7 +16,6 @@ function MoviesRow({ title, fetchURL }) {
           moviesData.results.map(movie => {
             return (
               <Wrap key={movie.id}>
-                {movie.id}
                 <Link to={'/detail/' + movie.id}>
                   <img
                     src={`${API_IMG_URL}${movie.poster_path}`}
@@ -35,18 +34,18 @@ const Container = styled.div`
   padding: 0 0 26px;
 `;
 const Content = styled.div`
-  display: grid;
-  grid-gap: 25px;
-  gap: 25px;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  display: flex;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  padding: 20px;
 
-  @media (max-width: 768px) {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  &::-webkit-scrollbar {
+    display: none;
   }
 `;
 
 const Wrap = styled.div`
-  padding-top: 56.25%;
+  margin-right: 10px;
   border-radius: 10px;
   box-shadow: rgb(0 0 0 / 69%) 0px 26px 30px -10px, rgb(0 0 0 / 73%) 0px 16px 10px -10px;
   cursor: pointer;
@@ -54,6 +53,9 @@ const Wrap = styled.div`
   position: relative;
   transition: all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s;
   border: 3px solid rgba(249, 249, 249, 0.1);
+  min-height: 290px;
+  width: 100%;
+  min-width: 180px;
 
   img {
     inset: 0px;
@@ -62,7 +64,7 @@ const Wrap = styled.div`
     object-fit: cover;
     opacity: 1;
     position: absolute;
-    transition: opacity 500ms ease-in-out 0s;
+    transition: opacity 500ms ease-in-out 0s, transform 500ms;
     width: 100%;
     z-index: 1;
     top: 0;

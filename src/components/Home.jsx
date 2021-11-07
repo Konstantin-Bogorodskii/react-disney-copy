@@ -10,7 +10,13 @@ function Home() {
     <Container>
       <ImageSlider />
       <Viewers />
-      <MoviesRow title="Recommended for You" fetchURL={requests.fetchTrending} />
+      <MoviesRow title="Trending Now" fetchURL={requests.fetchTrending} />
+      <MoviesRow title="Top Rated" fetchURL={requests.fetchTopRated} />
+      <MoviesRow title="Action Movies" fetchURL={requests.fetchActionMovies} />
+      <MoviesRow title="Comedy Movies" fetchURL={requests.fetchComedyMovies} />
+      <MoviesRow title="Horror Movies" fetchURL={requests.fetchHorrorMovies} />
+      <MoviesRow title="Romance Movies" fetchURL={requests.fetchRomanceMovies} />
+      <MoviesRow title="Documentaries" fetchURL={requests.fetchDocumentaries} />
     </Container>
   );
 }
