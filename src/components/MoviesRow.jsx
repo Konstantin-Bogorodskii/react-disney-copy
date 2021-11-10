@@ -16,7 +16,12 @@ function MoviesRow({ title, fetchURL }) {
           moviesData.results.map(movie => {
             return (
               <Wrap key={movie.id}>
-                <Link to={'/detail/' + movie.id}>
+                <Link
+                  to={{
+                    pathname: `/detail/${movie.id}`,
+                    movie,
+                  }}
+                >
                   <img
                     src={`${API_IMG_URL}${movie.poster_path}`}
                     alt={movie.name || movie.title || movie.original_title}
@@ -39,8 +44,26 @@ const Content = styled.div`
   overflow-y: hidden;
   padding: 20px;
 
+  &::-webkit-scrollbar-track {
+    ${'' /* background: #090b13; */}
+    background: white;
+    border-radius: 6px;
+  }
+
+  &::-webkit-thumb {
+    background: rgba(151, 151, 151, 0.34);
+  }
+
   &::-webkit-scrollbar {
-    display: none;
+    height: 10px;
+    diplay: none;
+    transition: all 300ms ease-in-out;
+  }
+
+  &:hover {
+    &::-webkit-scrollbar {
+      display: block;
+    }
   }
 `;
 

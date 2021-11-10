@@ -1,8 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
+import { API_IMG_URL } from '../api/api';
 
-function Detail() {
-  return <Container>Detail</Container>;
+function Detail({ movie }) {
+  return (
+    <Container>
+      {/* <Background>
+      <img src={`${API_IMG_URL}${movie.poster_path}`} alt="" />
+    </Background> */}
+    </Container>
+  );
 }
 
 const Container = styled.div`
@@ -12,5 +19,7 @@ const Container = styled.div`
   top: 72px;
   padding: 0 calc(3.5vw + 5px);
 `;
+
+const Background = styled.div``;
 
 export default Detail;

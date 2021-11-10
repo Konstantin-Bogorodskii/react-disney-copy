@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserLoginDeatils, setSignOutState } from '../store/reducers/userSlice';
 import NavMenuItem from './NavMenuItem';
+import { Link } from 'react-router-dom';
 
 function Header() {
   const dispatch = useDispatch();
@@ -52,7 +53,9 @@ function Header() {
   return (
     <Nav>
       <Logo>
-        <img src="/images/logo.svg" alt="Disney Logo" />
+        <Link to="/home">
+          <img src="/images/logo.svg" alt="Disney Logo" />
+        </Link>
       </Logo>
 
       {!userName ? (

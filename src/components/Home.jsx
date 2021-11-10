@@ -8,15 +8,15 @@ import requests from '../api/api';
 function Home() {
   return (
     <Container>
-      <ImageSlider />
-      <Viewers />
+      {/* <ImageSlider /> */}
+      {/* <Viewers /> */}
       <MoviesRow title="Trending Now" fetchURL={requests.fetchTrending} />
-      <MoviesRow title="Top Rated" fetchURL={requests.fetchTopRated} />
+      {/* <MoviesRow title="Top Rated" fetchURL={requests.fetchTopRated} />
       <MoviesRow title="Action Movies" fetchURL={requests.fetchActionMovies} />
       <MoviesRow title="Comedy Movies" fetchURL={requests.fetchComedyMovies} />
       <MoviesRow title="Horror Movies" fetchURL={requests.fetchHorrorMovies} />
       <MoviesRow title="Romance Movies" fetchURL={requests.fetchRomanceMovies} />
-      <MoviesRow title="Documentaries" fetchURL={requests.fetchDocumentaries} />
+      <MoviesRow title="Documentaries" fetchURL={requests.fetchDocumentaries} /> */}
     </Container>
   );
 }

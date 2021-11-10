@@ -1,13 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 function NavMenuItem({ text, img }) {
   return (
     <NavItem>
-      <a href={`/${text}`}>
-        <img src={`/images/${img}`} alt={text} />
-        <span>{text}</span>
-      </a>
+      <Link to="/home">
+        <a href={`/${text}`}>
+          <img src={`/images/${img}`} alt={text} />
+          <span>{text}</span>
+        </a>
+      </Link>
     </NavItem>
   );
 }
@@ -59,7 +62,8 @@ const NavItem = styled.li`
         transform: scaleX(1) !important;
         visibility: visible !important;
         opacity: 1 !important;
-      }
+      }import { Link } from 'react-router-dom';
+
     }
   }
 `;
