@@ -186,7 +186,7 @@ const SignOut = styled.div`
     ${DropDown} {
       opacity: 1;
       visibility: visible;
-      transition: all 0.3s ease-out 0.3s;
+      transition: all 0.3s ease-out;
     }
   }
 `;

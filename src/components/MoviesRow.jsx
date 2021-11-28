@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useFetching } from '../hooks/useFetching';
@@ -7,7 +7,6 @@ import { API_IMG_URL } from '../api/api';
 function MoviesRow({ title, fetchURL }) {
   const { data: moviesData, isLoading, error } = useFetching(fetchURL);
 
-  console.log(moviesData);
   return (
     <Container>
       <h2>{title}</h2>
@@ -50,7 +49,7 @@ const Content = styled.div`
     border-radius: 6px;
   }
 
-  &::-webkit-thumb {
+  &::-webkit-scrollbar-thumb {
     background: rgba(151, 151, 151, 0.34);
   }
 
@@ -58,6 +57,10 @@ const Content = styled.div`
     height: 10px;
     diplay: none;
     transition: all 300ms ease-in-out;
+  }
+
+  &::-webkit-scrollbar-track-piece {
+    background: red;
   }
 
   &:hover {
